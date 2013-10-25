@@ -55,15 +55,17 @@ var app;
 
   Archer.prototype.move = function(){
     console.log('archer prototype');
+    debugger;
   };
 
   Archer.prototype.injure = function(){
     this.health = this.health - 1;
   };
 
-  Archer.prototype.template = function(){
-    return '<div class="unit"><button class="unit-forward">^</button></div>';
-  };
+  Archer.prototype.template = $('<div class="unit"><button class="unit-forward">^</button></div>');
+  
+  // trying to sort out a way for my archer to move. This probably isn't goign to work
+  Archer.prototype.template.on('click', _(function(){ this.prototype.move(); }).bind(Archer));
 
   function createArcher(){
     // need a way to update positions
@@ -78,9 +80,10 @@ var app;
 
     this.units.push(archer);
     this.renderEntity(archer);
-    this.$army.append(archer.template());
+    this.$army.append(archer.template);
   }
 
+  // Reveal
   app = {
     Archer: Archer,
     initialize: initialize,
@@ -92,10 +95,3 @@ var app;
 })();
 
 app.initialize();
-
-// (function() {
-//  wrap everyting in anothe IFFEE
-//   app = require('app');
-//   app.initialize();
-  
-// })();
